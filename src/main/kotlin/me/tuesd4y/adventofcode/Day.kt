@@ -1,9 +1,11 @@
 package me.tuesd4y.adventofcode
 
+import me.tuesd4y.adventofcode.help.Log
+import me.tuesd4y.adventofcode.help.LogLevel
 import java.io.PrintWriter
 import java.nio.file.Paths
 
-abstract class Level(val level: Int) {
+abstract class Day(val level: Int) {
     fun input() = javaClass.getResourceAsStream("/input${level}.txt")
         .bufferedReader()
 
@@ -21,9 +23,14 @@ abstract class Level(val level: Int) {
 
         file.createNewFile()
 
-        out =  file.printWriter()
+        out = file.printWriter()
     }
+
     fun output() = out
 
-    abstract fun run()
+    abstract fun partA()
+
+    abstract fun partB()
+
+    val l = Log(LogLevel.Info)
 }

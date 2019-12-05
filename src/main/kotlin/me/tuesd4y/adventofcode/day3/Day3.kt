@@ -1,9 +1,9 @@
 package me.tuesd4y.adventofcode.day3
 
-import me.tuesd4y.adventofcode.Level
+import me.tuesd4y.adventofcode.Day
 import kotlin.math.abs
 
-class Level5 : Level(5) {
+class Day3 : Day(3) {
     data class Step(val direction: String, val distance: Int)
 
     data class Position(val x: Int, val y: Int) {
@@ -24,13 +24,23 @@ class Level5 : Level(5) {
     data class Segment(val p1: Position, val p2: Position, val previousDistance: Int)
 
 
-    override fun run() {
+    val data = input().readLines()
+    val steps1 = data[0].split(",").map { Step(it.substring(0, 1), it.substring(1).toInt()) }
+    val steps2 = data[1].split(",").map { Step(it.substring(0, 1), it.substring(1).toInt()) }
+
+
+    override fun partA() {
+        val intersections = getIntersectionPositions(stepsToSegments(steps1), stepsToSegments(steps2))
+        println(intersections.map { it.manhattanFromOrigin() }.sorted()[1])
+    }
+
+    override fun partB() {
         val data = input().readLines()
         val steps1 = data[0].split(",").map { Step(it.substring(0, 1), it.substring(1).toInt()) }
         val steps2 = data[1].split(",").map { Step(it.substring(0, 1), it.substring(1).toInt()) }
 
-        val intersections = getIntersectionPositions(stepsToSegments(steps1), stepsToSegments(steps2))
-        println(intersections.map { it.manhattanFromOrigin() }.sorted()[1])
+        val intersections = getIntersectionDistances(stepsToSegments(steps1), stepsToSegments(steps2))
+        println(intersections.sorted().drop(1).min())
     }
 
     private fun stepsToSegments(
@@ -80,5 +90,13 @@ class Level5 : Level(5) {
                 && s1.p1.x.coerceAtLeast(s1.p2.x) >= s2.p1.x
                 && s2.p1.y.coerceAtMost(s2.p2.y) <= s1.p1.y
                 && s2.p1.y.coerceAtLeast(s2.p2.y) >= s1.p1.y)
+    }
+
+    private fun getIntersectionDistances(segments1: List<Segment>, segments2: List<Segment>): List<Int> {
+        return segments1.flatMap { s1 ->
+            segments2.map { s2 ->
+                intersectionDistance(s1, s2)
+            }
+        }.filterNotNull()
     }
 }
