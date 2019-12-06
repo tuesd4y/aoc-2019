@@ -76,4 +76,8 @@ class Log(
     operator fun invoke(messageSource: () -> String) {
         log(messageSource)
     }
+
+    operator fun invoke(any: Any?) {
+        log(any.toString())
+    }
 }
