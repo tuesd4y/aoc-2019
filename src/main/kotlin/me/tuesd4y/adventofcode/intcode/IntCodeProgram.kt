@@ -6,6 +6,7 @@ import me.tuesd4y.adventofcode.help.LogLevel
 class IntCodeProgram(code: String) {
     val l = Log(LogLevel.Info2)
     var i = 0
+    // todo maybe this should be a queue?
     val input = mutableListOf<Int>()
     val output = mutableListOf<Int>()
     var inputCounter = 0

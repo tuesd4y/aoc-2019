@@ -6,11 +6,7 @@ import me.tuesd4y.adventofcode.intcode.IntCodeProgram
 
 class Day7 : Day(7) {
 
-    val data: String
-
-    init {
-        data = input().readText()
-    }
+    val data: String = input().readText()
 
     override fun partA() {
         var max = 0
