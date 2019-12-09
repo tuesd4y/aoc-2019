@@ -23,7 +23,7 @@ class Day7 : Day(7) {
                 amp.input.add(param)
                 amp.input.add(out)
                 amp.workUntil{ false}
-                out = amp.output.last()
+                out = amp.output.last().toInt()
                 l { "It returned $out\n" }
             }
 
@@ -56,7 +56,7 @@ class Day7 : Day(7) {
                 l("Adding input $out")
                 amps[currentAmp].input.add(out)
                 amps[currentAmp].workUntil { it == 4}
-                out = amps[currentAmp].output.last()
+                out = amps[currentAmp].output.last().toInt()
 
                 l("out [$currentAmp] -> in [${currentAmp+1}]: $out", LogLevel.Info2)
 
