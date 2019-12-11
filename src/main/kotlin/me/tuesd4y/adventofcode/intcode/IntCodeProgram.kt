@@ -15,9 +15,9 @@ class IntCodeProgram(code: String) {
     var relBase = 0L
 
     val d = code.split(",").map { it.replace("\n", "") }
-        .map { it.toInt() }.toMutableList()
+        .map { it.toLong() }.toMutableList()
 
-    val ops = Memory(d.mapIndexed{idx, v -> idx.toLong() to v.toLong()}.toMap())
+    val ops = Memory(d.mapIndexed{idx, v -> idx.toLong() to v }.toMap())
     
     class Memory(map: Map<Long, Long>) {
         val backingMap = map.toMutableMap()
@@ -31,6 +31,8 @@ class IntCodeProgram(code: String) {
             backingMap[i] = v
         }
     }
+
+    fun workUntilOutput() = workUntil { it == 4 }
 
     fun workUntil(endCondition: (Int) -> Boolean = { false }) {
         loop@ while (i < ops.size) {
