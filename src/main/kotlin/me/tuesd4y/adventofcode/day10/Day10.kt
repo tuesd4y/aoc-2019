@@ -1,6 +1,7 @@
 package me.tuesd4y.adventofcode.day10
 
 import me.tuesd4y.adventofcode.Day
+import me.tuesd4y.adventofcode.help.MathHelpers.gcd
 import kotlin.math.PI
 import kotlin.math.abs
 
@@ -46,10 +47,6 @@ class Day10: Day(10) {
     val asteroids: List<Asteroid> = data.split("\n").mapIndexed { x, v ->
         v.toCharArray().mapIndexed { y, c -> if (c == '#') Asteroid(y,x) else null }
     }.flatten().filterNotNull()
-
-    private tailrec fun gcd(a: Int, b: Int): Int {
-        return if (b == 0) a else gcd(b, a % b) // Not bad for one line of code :)
-    }
 
     lateinit var station: Asteroid
 
